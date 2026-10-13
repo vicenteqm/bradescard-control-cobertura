@@ -2,6 +2,10 @@
 
 Adaptación del panel de Control de cobertura. Por ahora utiliza únicamente la base de tiendas y el archivo de asistencias semanal; no requiere Pandape ni MAAT.
 
+Panel compartido: https://vicenteqm.github.io/bradescard-control-cobertura/
+
+Diseño Halloween pixel de los 80 en naranja y negro. Los personajes están animados y el botón Pausar animación permite detenerlos; se respeta la preferencia del sistema de reducir movimiento.
+
 Abre `site/index.html` para consultar el panel local.
 
 ## Actualizar
@@ -28,4 +32,4 @@ El periodo es explícito. Sustituye las copias de los archivos en `inputs` cuand
 - Vacantes y plazas cubiertas se calculan por tienda y perfil. Los excedentes no compensan otros faltantes.
 - Se muestran advertencias por personas sin tienda en la base o fuera de operación. No se publican nóminas, nombres ni datos de contacto.
 
-Esta versión está preparada para consulta local; no se ha publicado en GitHub.
+GitHub Pages publica únicamente `site/`. Los archivos Excel originales, las dependencias locales y los registros del proceso quedan excluidos del repositorio. Para publicar cambios usa `python publicar_github.py` con una sesión de GitHub configurada en Git Credential Manager.
