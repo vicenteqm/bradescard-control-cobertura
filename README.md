@@ -4,7 +4,7 @@ Adaptación del panel de Control de cobertura. Por ahora utiliza únicamente la 
 
 Panel compartido: https://vicenteqm.github.io/bradescard-control-cobertura/
 
-Diseño Halloween pixel de los 80 en naranja y negro. Los personajes están animados y el botón Pausar animación permite detenerlos; se respeta la preferencia del sistema de reducir movimiento.
+Diseño Halloween pixel de los 80 con fondo negro, naranja y morado pastel. Los personajes conservan sus colores originales: calabaza naranja con tallo verde, fantasma y calavera blancos, murciélago morado. Los personajes están animados y el botón Pausar animación permite detenerlos; se respeta la preferencia del sistema de reducir movimiento.
 
 Abre `site/index.html` para consultar el panel local.
 
