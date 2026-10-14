@@ -30,6 +30,6 @@ El periodo es explícito. Sustituye las copias de los archivos en `inputs` cuand
 - Cada día tiene código, Entr, Sal y Hrs Pro. Se leen las primeras tres columnas; Hrs Pro no se utiliza como checada.
 - Los códigos sin catálogo se muestran tal como están. Los días vacíos no se convierten en faltas.
 - Vacantes y plazas cubiertas se calculan por tienda y perfil. Los excedentes no compensan otros faltantes.
-- Se muestran advertencias por personas sin tienda en la base o fuera de operación. No se publican nóminas, nombres ni datos de contacto.
+- Conciliación de activos muestra los nombres, puestos y tiendas del personal ACTIVO elegible, indicando si cuenta en cobertura y el motivo. Incluye personas sin tienda en la base y tiendas fuera de operación. No se publican nóminas ni datos de contacto.
 
 GitHub Pages publica únicamente `site/`. Los archivos Excel originales, las dependencias locales y los registros del proceso quedan excluidos del repositorio. Para publicar cambios usa `python publicar_github.py` con una sesión de GitHub configurada en Git Credential Manager.

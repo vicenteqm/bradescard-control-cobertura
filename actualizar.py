@@ -104,6 +104,8 @@ def generate(base, attendance, period):
     hours = defaultdict(empty_hours)
     seen = {}
     payroll_names = {}
+    active_review = []
+    review_seen = {}
     try:
         sheet = book['Hoja1']
         raw_headers, h = columns(sheet)
@@ -124,6 +126,17 @@ def generate(base, attendance, period):
             if role not in ('PROMOTOR', 'PROMOTOR DE CREDITO', 'SUBLIDER'):
                 continue
             key = norm(get('SOCIO')) + ' ' + identifier(get('DETERMINANTE'))
+            review_identity = (identifier(get('NUM DE NOMINA')), norm(get('NOMBRE COMPLETO')))
+            review_fingerprint = (key, role, tuple(norm(value) for value in row))
+            if review_identity in review_seen:
+                if review_seen[review_identity] != review_fingerprint:
+                    raise ValueError('Personal activo duplicado con datos distintos; revise el Excel')
+                warnings['Filas de personal duplicadas omitidas'] += 1
+                continue
+            review_seen[review_identity] = review_fingerprint
+            store = stores.get(key)
+            reason = 'Sin tienda en la base' if store is None else 'Tienda con estatus ' + store['status'] if store['status'] != 'OPERANDO' else 'Contabilizado en cobertura'
+            active_review.append(dict(name=str(get('NOMBRE COMPLETO') or ''), role=role, storeId=key, storeName=store['name'] if store else '', storeStatus=store['status'] if store else 'SIN TIENDA EN BASE', counted=bool(store and store['status']=='OPERANDO'), reason=reason))
             if key not in stores:
                 warnings['Personal activo sin tienda en base'] += 1
                 continue
@@ -179,6 +192,7 @@ def generate(base, attendance, period):
         warnings['Salidas anteriores a entrada; excluidas de duración promedio'] = sum(summary['reversedPairs'] for summary in hours.values())
     code_days = [day for day, codes in days.items() if codes]
     result = dict(updatedAt=datetime.now(timezone.utc).isoformat(), period=period, cutoff=f'{period}-{max(code_days):02}' if code_days else None, codeLabels=CODE_LABELS, sources=[dict(name=p.name, modifiedAt=datetime.fromtimestamp(p.stat().st_mtime, timezone.utc).isoformat()) for p in [base, attendance]], stores=list(stores.values()), attendance=[dict(day=day, codes=dict(codes), hours=hours[day]) for day, codes in sorted(days.items())], warnings=dict(warnings))
+    result['activeReview'] = active_review
     return result
 
 def publish_data(root):
